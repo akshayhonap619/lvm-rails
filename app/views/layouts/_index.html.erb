@@ -17,8 +17,18 @@
 </div>
 
 <% if @new_button %>
-  <div class="row col-md-12 index-new-button">
-    <a href=<%= @new_button[:url] %> role="button" class="btn btn-success"> <%= @new_button[:text] %> </a>
+  <div class="col-md-6 text-left">
+    <div class="index-new-button">
+      <a href=<%= @new_button[:url] %> role="button" class="btn btn-success"> <%= @new_button[:text] %> </a>
+    </div>
+  </div>
+<% end %>
+
+<% if @download_button %>
+  <div class="col-md-6 text-right">
+    <div class="index-download-button">
+      <a href=<%= @download_button[:url] %> role="button" class="btn btn-primary"> <%= @download_button[:text] %> </a>
+    </div>
   </div>
 <% end %>
 

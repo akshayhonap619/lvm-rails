@@ -131,4 +131,15 @@ class Tutor < ApplicationRecord
   def self.deleted_of(user)
     where.not(deleted_on: nil) if user.admin?
   end
+
+  def self.to_csv
+    attributes = Tutor.column_names
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |tutor|
+        csv << tutor.attributes.values_at(*attributes)
+      end
+    end
+  end
 end

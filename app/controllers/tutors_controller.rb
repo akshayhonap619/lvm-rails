@@ -30,6 +30,16 @@ class TutorsController < ApplicationController
       'cell_phone',
       'email_preferred'
     ]
+    @download_button = {
+      text: 'Download All',
+      url: tutors_path(format: :csv)
+    }
+    respond_to do |format|
+      format.html
+      # rubocop:disable LineLength
+      format.csv { send_data @models.to_csv, filename: "tutors-#{Date.today}.csv" }
+      # rubocop:enable LineLength
+    end
   end
 
   def deleted_index
