@@ -21,7 +21,8 @@ class AffiliatesController < ApplicationController
       'Phone Number',
       'Email',
       'Website',
-      'Twitter'
+      'Twitter',
+      'Tags'
     ]
     @columns = [
       'name',
@@ -29,7 +30,8 @@ class AffiliatesController < ApplicationController
       'phone_number',
       'email',
       'website',
-      'twitter'
+      'twitter',
+      'tags'
     ]
   end
 
@@ -90,6 +92,6 @@ class AffiliatesController < ApplicationController
   def affiliate_params
     params.require(:affiliate).permit(:name, :address, :phone_number,
                                       :email, :website, :twitter, :zip,
-                                      :city, :state)
+                                      :city, :state, :tags)
   end
 end

@@ -384,6 +384,12 @@
 
   <section>
     <%= f.button :submit %>
+    <%= link_to tutor_delete_path(@tutor), method: :patch, data: { confirm: "Are you sure you want to delete #{@tutor.name}?" } do %>
+      <button class="btn-default btn">
+        <span class="glyphicon glyphicon-trash"></span> Delete Tutor
+      </button>
+    
+<% end %>
   </section>
   <hr>
 </form>

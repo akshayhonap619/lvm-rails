@@ -20,6 +20,7 @@ class Affiliate < ApplicationRecord
   validates :state, presence: true
   validates :city, presence: true
 
+
   def full_address
     "#{address}, #{city} #{state}, #{zip}"
   end
