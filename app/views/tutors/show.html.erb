@@ -420,27 +420,27 @@
 
               <div class="col-md-6">
                 <div class="panel panel-default">
-                  <div class="panel-heading">Crimial Record</div>
+                  <div class="panel-heading">Criminal Record</div>
                   <div class="panel-body">
                     <div class="row text-center">
-                      <% if @tutor.criminal_conviction.blank? && @tutor.release_on_file.blank? %>
+                      <% if @tutor.criminal_conviction.nil? && @tutor.release_on_file.nil? %>
                         <div class="col-xs-12">
                           No criminal conviction information on file.
                         </div>
                       <% else %>
-                        <% if !@tutor.criminal_conviction.blank? %>
+                        <% if !@tutor.criminal_conviction.nil? %>
                           <div class="col-sm-4">
-                            <b>Criminal Conviction?</b>
+                            <b>Criminal Conviction</b>
                             <p><%= @tutor.criminal_conviction ? 'Yes' : 'No' %></p>
                           </div>
                         <% end %>
-                        <% if !@tutor.release_on_file.blank? %>
+                        <% if !@tutor.release_on_file.nil? %>
                           <div class="col-sm-4">
-                            <b>Release on file?</b>
+                            <b>Release on file</b>
                             <p><%= @tutor.release_on_file ? 'Yes' : 'No' %></p>
                           </div>
                         <% end %>
-                        <% if !@tutor.release_sign_date.blank? %>
+                        <% if !@tutor.release_sign_date.nil? %>
                           <div class="col-sm-4">
                             <b>Release Sign Date</b>
                             <p><%= @tutor.release_sign_date.strftime('%D') %></p>
