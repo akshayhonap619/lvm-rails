@@ -187,36 +187,61 @@
       <div class="col-md-2">
         <div class="form-group">
           <label class="control-label"> Mail </label>
-          <%= f.input :mail_ok, as: :boolean, input_html: {checked: false}, label: "mail ok?", required: false %>
+
+          <%= f.label :mail_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :mail_ok, as: :boolean, input_html: {checked: false}, label: "mail ok?", required: false %>
+          mail ok?
+          <% end %>
        </div>
       </div>
 
       <div class="col-md-2">
         <div class="form-group">
           <label class="control-label"> Email </label>
-          <%= f.input :email_ok, as: :boolean, input_html: {checked: false}, label: "email ok?", required: false %>
+          <%= f.label :email_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :email_ok, as: :boolean, input_html: {checked: false}, label: "email ok?", required: false %>
+          email ok?
+          <% end %>
        </div>
       </div>
 
       <div class="col-md-2">
         <div class="form-group">
           <label class="control-label"> Cell Phone </label>
-          <%= f.input :cell_ok, as: :boolean, input_html: {checked: false}, label: "cell ok?", required: false %>
-          <%= f.input :cell_lvm_ok, as: :boolean, input_html: {checked: false}, label: "lvm ok?", required: false %>
+          <%= f.label :cell_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :cell_ok, as: :boolean, input_html: {checked: false}, label: "cell ok?", required: false %>
+          cell ok?
+          <% end %>
+          <%= f.label :cell_lvm_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :cell_lvm_ok, as: :boolean, input_html: {checked: false}, label: "lvm ok?", required: false %>
+          lvm ok?
+          <% end %>
        </div>
       </div>
       <div class="col-md-2">
         <div class="form-group">
           <label class="control-label"> Home Phone </label>
-          <%= f.input :home_ok, as: :boolean, input_html: {checked: false}, label: "home ok?", required: false %>
-          <%= f.input :home_lvm_ok, as: :boolean, input_html: {checked: false}, label: "lvm ok?", required: false %>
+          <%= f.label :home_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :home_ok, as: :boolean, input_html: {checked: false}, label: "home ok?", required: false %>
+          home ok?
+          <% end %>
+          <%= f.label :home_lvm_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :home_lvm_ok, as: :boolean, input_html: {checked: false}, label: "lvm ok?", required: false %>
+          lvm ok?
+          <% end %>
        </div>
       </div>
       <div class="col-md-2">
         <div class="form-group">
           <label class="control-label"> Work Phone </label>
-          <%= f.input :work_ok, as: :boolean, input_html: {checked: false}, label: "work ok?", required: false %>
-          <%= f.input :work_lvm_ok, as: :boolean, input_html: {checked: false}, label: "lvm ok?", required: false %>
+          <%= f.label :work_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :work_ok, as: :boolean, input_html: {checked: false}, label: "work ok?", required: false %>
+          work ok?
+          <% end %>
+          <%= f.label :work_lvm_ok,  class: 'checkbox'  do %>
+          <%= f.check_box :work_lvm_ok, as: :boolean, input_html: {checked: false}, label: "lvm ok?", required: false %>
+          lvm ok?
+          <% end %>
        </div>
       </div>
 
