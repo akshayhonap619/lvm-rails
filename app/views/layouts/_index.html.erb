@@ -17,15 +17,23 @@
 </div>
 
 <% if @new_button %>
-  <div class="col-md-6 text-left">
+  <div class="col-md-2 text-left">
     <div class="index-new-button">
       <a href=<%= @new_button[:url] %> role="button" class="btn btn-success"> <%= @new_button[:text] %> </a>
     </div>
   </div>
 <% end %>
 
+<% if @assessments_button %>
+  <span class="col-md-6 text-left">
+    <span class="index-new-button">
+      <a href=<%= @assessments_button[:url] %> role="button" class="btn btn-info"> <%= @assessments_button[:text] %> </a>
+    </span>
+  </span>
+<% end %>
+
 <% if @download_button %>
-  <div class="col-md-6 text-right">
+  <div class="col-md-10 text-right">
     <div class="index-download-button">
       <a href=<%= @download_button[:url] %> role="button" class="btn btn-primary"> <%= @download_button[:text] %> </a>
     </div>

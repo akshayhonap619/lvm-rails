@@ -8,6 +8,11 @@ class StudentsController < ApplicationController
   def index
     add_breadcrumb 'Students'
 
+    @assessments_button = {
+      text: 'View All Assessments',
+      url: assessments_path
+    }
+
     @new_button = {
       text: 'Create New Student',
       url: new_student_path
