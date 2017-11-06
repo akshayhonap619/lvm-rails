@@ -3,17 +3,55 @@ class AssessmentsController < ApplicationController
 
   add_breadcrumb 'Home', :root_path
 
-  # GET /assessments
-  def index
-    add_breadcrumb 'Assessments'
+  def student_assesments_index
+    @student = Student.of(current_user).find(params[:id])
+
+    add_breadcrumb 'Students', students_path
+    add_breadcrumb 'Assessments', assessments_path
+    add_breadcrumb @student.name, student_path(@student)
+    add_breadcrumb "Assessments of #{@student.name}"
 
     @new_button = {
       text: 'Create New Assessment',
-      url: new_assessment_path
+      url: new_assessment_path(student_id: @student)
     }
     @clickable_rows = true
     @page_title = 'Assessments'
-    @models = Assessment.all
+    @page_title_subtext = "For #{@student.name}"
+    @models = Assessment.where(student_id: @student.id)
+    @headers = [
+      'Name',
+      'Category',
+      'Level',
+      'Type',
+      'Score',
+      'Date'
+    ]
+    @columns = [
+      'name',
+      'category',
+      'level',
+      'assessment_type',
+      'score',
+      'date'
+    ]
+  end
+
+  # GET /assessments
+  def index
+    add_breadcrumb 'Students', students_path
+    add_breadcrumb 'Assessments'
+
+    @clickable_rows = true
+    @page_title = 'Assessments'
+
+    if current_user.admin?
+      @models = Assessment.all
+    else
+      @students = Student.of(current_user).where(deleted_on: nil)
+      @models = Assessment.where(student_id: @students.ids)
+    end
+
     @headers = [
       'Name',
       'Category',
@@ -34,13 +72,20 @@ class AssessmentsController < ApplicationController
 
   # GET /assessments/1
   def show
+    add_breadcrumb 'Students', students_path
     add_breadcrumb 'Assessments', assessments_path
+    add_breadcrumb "Assessments for #{@assessment.student.name}",
+                   students_assessments_path(@assessment.student)
     add_breadcrumb 'Assessment'
   end
 
   # GET /assessments/new
   def new
-    add_breadcrumb 'Assessments', assessments_path
+    student_id = params[:student_id]
+    @student = Student.of(current_user).find(student_id)
+
+    add_breadcrumb "Assessments for #{@student.name}",
+                   students_assessments_path(@student)
     add_breadcrumb 'New Assessment'
 
     @assessment = Assessment.new
@@ -48,7 +93,10 @@ class AssessmentsController < ApplicationController
 
   # GET /assessments/1/edit
   def edit
-    add_breadcrumb 'Assessments', assessments_path
+    @student = @assessment.student
+
+    add_breadcrumb "Assessments for #{@student.name}",
+                   students_assessments_path(@student)
     add_breadcrumb 'Assessment', assessment_path(@assessment)
     add_breadcrumb 'Edit'
   end
@@ -76,7 +124,8 @@ class AssessmentsController < ApplicationController
   # DELETE /assessments/1
   def destroy
     @assessment.destroy
-    redirect_to assessments_url, notice: 'Assessment was successfully deleted.'
+    redirect_to students_assessments_url(@assessment.student),
+                notice: 'Assessment was successfully deleted.'
   end
 
   private

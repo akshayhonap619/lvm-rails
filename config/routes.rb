@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'welcome/index'
 
+  get 'assessments/student/:id', to: 'assessments#student_assesments_index', as: 'students_assessments'
+
   put 'students/set_tutor'
   put 'tutors/add_student'
   patch 'tutors/remove_student'
