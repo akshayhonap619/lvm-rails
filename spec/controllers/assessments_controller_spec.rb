@@ -47,7 +47,9 @@ RSpec.describe AssessmentsController, type: :controller do
 
       it 'populates an array of coordinators students assessments' do
         get :index, params: { id: @coordinator.id }
-        expect(assigns(:models)).to eq([@assessment2, @assessment3, @assessment4])
+        expect(assigns(:models)).to eq([@assessment2,
+                                        @assessment3,
+                                        @assessment4])
       end
 
       it 'renders the index template' do
@@ -231,7 +233,8 @@ RSpec.describe AssessmentsController, type: :controller do
 
       it 'redirects to assessment :index view' do
         delete :destroy, params: { id: @assessment }
-        expect(response).to redirect_to students_assessments_path(@assessment.student)
+        expect(response)
+          .to redirect_to students_assessments_path(@assessment.student)
       end
     end
   end
