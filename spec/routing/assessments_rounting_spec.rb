@@ -7,6 +7,11 @@ RSpec.describe AssessmentsController, type: :routing do
         .to route_to('assessments#index')
     end
 
+    it 'routes to #student_assesments_index' do
+      expect(get: '/assessments/student/1')
+        .to route_to('assessments#student_assesments_index', id: '1')
+    end
+
     it 'routes to #new' do
       expect(get: '/assessments/new')
         .to route_to('assessments#new')
