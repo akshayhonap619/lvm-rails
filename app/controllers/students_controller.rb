@@ -64,6 +64,11 @@ class StudentsController < ApplicationController
     ]
   end
 
+  def deny_access
+    flash[:alert] = 'Access Denied'
+    redirect_to root_path
+  end
+
   def show
     if @student.deleted_on
       add_breadcrumb 'Deleted Students', deleted_students_path
@@ -239,6 +244,8 @@ class StudentsController < ApplicationController
 
   def set_student
     @student = Student.of(current_user).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
   end
 
   def tutor_options
