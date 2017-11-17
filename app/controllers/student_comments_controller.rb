@@ -1,7 +1,7 @@
 class StudentCommentsController < ApplicationController
-  before_action :set_student, only:[:new]
+  before_action :set_student, only: [:new]
   before_action :set_student_comment, only: [:edit, :update, :destroy]
-  before_action :get_student_of_comment, only: [:edit, :destroy]
+  before_action :set_student_of_comment, only: [:edit, :destroy]
 
   add_breadcrumb 'Home', :root_path
 
@@ -62,7 +62,7 @@ class StudentCommentsController < ApplicationController
     deny_access
   end
 
-  def get_student_of_comment
+  def set_student_of_comment
     @student = Student.of(current_user).find(@student_comment.student_id)
   rescue ActiveRecord::RecordNotFound
     deny_access

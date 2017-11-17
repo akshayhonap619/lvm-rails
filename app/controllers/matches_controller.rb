@@ -32,7 +32,6 @@ class MatchesController < ApplicationController
   def show
     add_breadcrumb 'Matches', matches_path
     add_breadcrumb 'Match'
-
   end
 
   private
