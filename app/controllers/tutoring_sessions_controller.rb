@@ -1,6 +1,7 @@
 class TutoringSessionsController < ApplicationController
   before_action :guard_against_tutors
   before_action :set_student, only: [:student_index]
+  before_action :set_tutor, only: [:tutor_index]
   before_action :set_tutoring_session, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb 'Home', :root_path
@@ -42,7 +43,7 @@ class TutoringSessionsController < ApplicationController
   end
 
   def tutor_index
-    @tutor = Tutor.of(current_user).find(params[:id])
+    # @tutor = Tutor.of(current_user).find(params[:id])
 
     add_breadcrumb "Tutoring Sessions for #{@tutor.name}"
 
@@ -164,6 +165,12 @@ class TutoringSessionsController < ApplicationController
 
   def set_student
     @student = Student.of(current_user).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
+  end
+
+  def set_tutor
+    @tutor = Tutor.of(current_user).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     deny_access
   end

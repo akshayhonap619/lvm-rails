@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
     deny_access unless current_user.admin?
   end
 
+  def show?
+  rescue ActiveRecord::RecordNotFound
+    deny_access
+  end
+
   private
 
   def deny_access
