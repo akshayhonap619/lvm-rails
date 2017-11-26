@@ -39,6 +39,8 @@
   </div>
 
   <%= f.button :submit %>
+
+  <%= f.hidden_field :student_id, value: @student.id %>
 </form>
 
 <script>$('.datepicker').datepicker({'dateFormat': 'yy-mm-dd'});</script>
