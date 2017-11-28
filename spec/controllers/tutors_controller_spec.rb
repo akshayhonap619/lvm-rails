@@ -55,12 +55,12 @@ RSpec.describe TutorsController, type: :controller do
 
         it 'denys access to show tutor who doesnt belong to this coordinator' do
           get :show, params: { id: @tutor3 }
-          expect(redirect_to root_path)
+          expect((redirect_to root_path))
         end
 
         it 'denys access to edit tutor who doesnt belong to this coordinator' do
           get :edit, params: { id: @tutor3 }
-          expect(redirect_to root_path)
+          expect((redirect_to root_path))
         end
       end
 

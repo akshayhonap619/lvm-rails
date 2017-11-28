@@ -48,14 +48,14 @@ RSpec.describe TutoringSessionsController, type: :controller do
         @tutor3 = create(:tutor)
       end
 
-      it 'denys access to show the index of student who doesnt belong to this coordinator' do
+      it 'denys access to show the index of incorrect student_id' do
         get :student_index, params: { id: @student3.id }
-        expect(redirect_to root_path)
+        expect((redirect_to root_path))
       end
 
-      it 'denys access to show the index of tutor who doesnt belong to this coordinator' do
+      it 'denys access to incorrect student_id' do
         get :tutor_index, params: { id: @tutor3.id }
-        expect(redirect_to root_path)
+        expect((redirect_to root_path))
       end
     end
 

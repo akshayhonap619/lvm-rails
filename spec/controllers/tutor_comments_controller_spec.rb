@@ -36,9 +36,9 @@ RSpec.describe TutorCommentsController, type: :controller do
         @tutor_comment = create(:tutor_comment, tutor_id: @tutor.id)
       end
 
-      it 'denys to create a new comment for tutor who is not under this coordinator' do
+      it 'denys to create a new comment for incorrect tutor_id' do
         get :new, params: { tutor: @tutor }
-        expect(redirect_to root_path)
+        expect((redirect_to root_path))
       end
     end
 

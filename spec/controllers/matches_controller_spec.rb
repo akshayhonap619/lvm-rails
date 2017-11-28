@@ -34,12 +34,6 @@ RSpec.describe MatchesController, type: :controller do
       end
     end
 
-    describe 'GET #show' do
-      it 'populates @match' do
-        get :show, params: { id: @match1.id }
-        expect(assigns(:match)).to eq(@match1)
-      end
-
     describe 'as coordinator' do
       before do
         affiliate = create(:affiliate)
@@ -53,9 +47,15 @@ RSpec.describe MatchesController, type: :controller do
 
       it 'denys access for invalid matchid' do
         get :show, params: { id: @match1.id }
-        expect(redirect_to root_path)
+        expect((redirect_to root_path))
       end
     end
+
+    describe 'GET #show' do
+      it 'populates @match' do
+        get :show, params: { id: @match1.id }
+        expect(assigns(:match)).to eq(@match1)
+      end
 
       it 'populates @student' do
         get :show, params: { id: @match1.id }

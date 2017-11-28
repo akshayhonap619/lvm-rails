@@ -104,14 +104,14 @@ RSpec.describe StudentsController, type: :controller do
           @student2 = create(:student)
         end
 
-        it 'denys access to show student who doesnt belong to this coordinator' do
+        it 'denys access to show student of incorrect student_id' do
           get :show, params: { id: @student2 }
-          expect(redirect_to root_path)
+          expect((redirect_to root_path))
         end
 
-        it 'denys access to edit student who doesnt belong to this coordinator' do
+        it 'denys access to edit student of incorrect student_id' do
           get :edit, params: { id: @student2 }
-          expect(redirect_to root_path)
+          expect((redirect_to root_path))
         end
 
         it 'redirects to the welcome view' do
