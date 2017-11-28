@@ -64,11 +64,6 @@ class StudentsController < ApplicationController
     ]
   end
 
-  def deny_access
-    flash[:alert] = 'Access Denied'
-    redirect_to root_path
-  end
-
   def show
     if @student.deleted_on
       add_breadcrumb 'Deleted Students', deleted_students_path

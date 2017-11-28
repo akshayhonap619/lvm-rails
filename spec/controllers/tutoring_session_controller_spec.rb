@@ -40,6 +40,25 @@ RSpec.describe TutoringSessionsController, type: :controller do
       end
     end
 
+    describe 'as Coordinator' do
+      before do
+        user = User.new(role: 1, coordinator_id: 1)
+        sign_in_auth(user)
+        @student3 = create(:student)
+        @tutor3 = create(:tutor)
+      end
+
+      it 'denys access to show the index of student who doesnt belong to this coordinator' do
+        get :student_index, params: { id: @student3.id }
+        expect(redirect_to root_path)
+      end
+
+      it 'denys access to show the index of tutor who doesnt belong to this coordinator' do
+        get :tutor_index, params: { id: @tutor3.id }
+        expect(redirect_to root_path)
+      end
+    end
+
     describe 'GET #tutor_index' do
       it 'populates an array of tutoring_session for specified tutor' do
         get :tutor_index, params: { id: @tutor1.id }

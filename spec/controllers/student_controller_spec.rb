@@ -100,6 +100,18 @@ RSpec.describe StudentsController, type: :controller do
         before do
           user = User.new(role: 1, coordinator_id: 1)
           sign_in_auth(user)
+
+          @student2 = create(:student)
+        end
+
+        it 'denys access to show student who doesnt belong to this coordinator' do
+          get :show, params: { id: @student2 }
+          expect(redirect_to root_path)
+        end
+
+        it 'denys access to edit student who doesnt belong to this coordinator' do
+          get :edit, params: { id: @student2 }
+          expect(redirect_to root_path)
         end
 
         it 'redirects to the welcome view' do

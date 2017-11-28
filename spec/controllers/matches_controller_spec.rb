@@ -40,6 +40,23 @@ RSpec.describe MatchesController, type: :controller do
         expect(assigns(:match)).to eq(@match1)
       end
 
+    describe 'as coordinator' do
+      before do
+        affiliate = create(:affiliate)
+        coordinator = create(:coordinator, affiliate: affiliate)
+        @student = create(:student)
+        create(:enrollment, student: @student, affiliate: affiliate)
+
+        @user = User.new(role: 1, coordinator_id: coordinator.id)
+        sign_in_auth(@user)
+      end
+
+      it 'denys access for invalid matchid' do
+        get :show, params: { id: @match1.id }
+        expect(redirect_to root_path)
+      end
+    end
+
       it 'populates @student' do
         get :show, params: { id: @match1.id }
         expect(assigns(:student)).to eq(@student1)
