@@ -18,6 +18,17 @@
   <section id="lvmInfo">
     <h4>LVM Information</h4>
     <hr>
+    <div>
+
+<hr/>
+     <h4>Affiliate</h4>
+       <select>
+        <% @affiliate1.each do |model| %>
+        <option value= <%=model.id %> >  <%=model.name %>    </option>
+        <%end %>
+</select>
+    </div>
+
     <div class="row">
       <div class="col-md-4">
         <%= f.input :smartt_id, label: "SMARTT ID", placeholder: "####-######", maxlength: 11, required: false, input_html: { class: "mask_smartt_id" } %>
@@ -233,6 +244,10 @@
                     collection: availability_times,
                     checked: @student.current_availability_array,
                     required: false %>
+                <div>
+                  <h1>availability</h1>
+                    <%= @student.current_availability_array %>
+                </div>
       </div>
       <div class="col-md-3">
         <%= f.input :age_preference,

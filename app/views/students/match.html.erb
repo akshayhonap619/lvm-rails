@@ -1,0 +1,30 @@
+<h1> Matches </h1>
+<div>
+
+
+   <% @tutor_options.each do |model| %>
+      <div> <%= model %> </div>
+   <%end %>
+
+<div>
+<%= @student.availability %>
+</div>
+
+<div>
+<%= @student.age_preference %>
+</div>
+
+
+<!-- %= @tutor_options % -->
+<div>
+Student Time
+<%= @student_availablity %>
+</div>
+
+<div>
+Student Preferences
+<%= @student_preferences %>
+</div>
+
+
+</div>

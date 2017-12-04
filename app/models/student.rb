@@ -71,7 +71,10 @@ class Student < ApplicationRecord
   end
 
   def active_affiliate
-    Affiliate.find(enrollments.where(end: nil).take.affiliate_id)
+    #Affiliate.find(enrollments.where(end: nil).take.affiliate_id)
+    if Affiliate.find(enrollments.take.affiliate_id)!= nil
+      Affiliate.find(enrollments.where(end: nil).take.affiliate_id)
+    end
   end
 
   def deleted_by_email

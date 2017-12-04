@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  get 'match/match'
+
   devise_for :users
   root 'welcome#index'
 
   get 'welcome/index'
+
+  get 'akshay/avni/monisha', to: 'welcome#sample'
 
   put 'students/set_tutor'
   put 'tutors/add_student'
@@ -30,6 +34,8 @@ Rails.application.routes.draw do
   get 'users/:id/edit', to: 'users#edit', as: 'edit_user'
   patch 'users/:id/update', to: 'users#update', as: 'update_users'
   post 'user/admin_create', to: 'users#create', as: 'admin_users_create'
+
+  get 'students/:id/match', to: 'students#match', as: 'students_match' 
 
   resources :affiliates
   resources :assessments

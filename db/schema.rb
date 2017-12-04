@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010022437) do
+ActiveRecord::Schema.define(version: 20171122224340) do
 
   create_table "affiliates", force: :cascade do |t|
     t.string   "name"
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20171010022437) do
     t.string   "native_language"
     t.string   "country_of_birth"
     t.integer  "availability"
-    t.string   "address2"
+    t.string   "address2".
     t.integer  "smartt_id"
     t.string   "status"
     t.string   "status_date_of_change"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20171010022437) do
     t.string   "referral_other"
     t.date     "deleted_on"
     t.integer  "deleted_by"
+    t.integer  "affiliate"
   end
 
   create_table "taggings", force: :cascade do |t|

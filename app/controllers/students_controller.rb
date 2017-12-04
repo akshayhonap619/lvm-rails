@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :ensure_coordinator_or_admin!
-  before_action :set_student, only: [:show, :edit]
+  before_action :set_student, only: [:show, :edit, :match]
   helper_method :tutor?
 
   add_breadcrumb 'Home', :root_path
@@ -8,9 +8,11 @@ class StudentsController < ApplicationController
   def index
     add_breadcrumb 'Students'
 
+
     @new_button = {
       text: 'Create New Student',
-      url: new_student_path
+    # url: new_student_path
+      url: 'students//match'
     }
     @clickable_rows = true
     @page_title = 'Students'
@@ -79,14 +81,30 @@ class StudentsController < ApplicationController
     add_breadcrumb 'Students', students_path
     add_breadcrumb 'New Student'
 
+    @affiliate1 = Affiliate.all
     @student = Student.new
+  end
+
+  def match
+    @tutor_options = match_options
+
+
+
+    @student_availablity = @student.current_availability_array
+    @student_preferences = @student.age_preference_array
+    @tutor_options.each do |model|
+      @tutor_availability = model[1];
+
+
+    end
+
   end
 
   def edit
     add_breadcrumb 'Students', students_path
     add_breadcrumb @student.name, student_path(@student)
     add_breadcrumb 'Edit'
-
+    @affiliate1 = Affiliate.all
     @can_edit = !current_user.role.zero?
   end
 
@@ -252,6 +270,17 @@ class StudentsController < ApplicationController
     tutors.insert(0, ['No Tutor', 0])
   end
 
+  def match_options
+    tutors =
+      Tutor.of(current_user).where(deleted_on: nil)
+           .joins(:volunteer_jobs).where(
+             volunteer_jobs: {
+               affiliate_id: @student.active_affiliate.id
+             }
+           ).order(:id).to_a.map { |t| [t.id, t.availability ? PreferencesHelper.explode(t.availability) : [], t.availability ? PreferencesHelper.explode(t.age_preference) : []] }
+  end
+
+
   def should_update_tutor(student_id, tutor_id)
     # If the selection was "No tutor" (id is 0)
     # or the student doesn't have a tutor
@@ -277,4 +306,5 @@ class StudentsController < ApplicationController
   def current_match(student_id)
     Match.where(student_id: student_id, end: nil).take
   end
+
 end

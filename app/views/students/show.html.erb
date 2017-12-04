@@ -188,7 +188,8 @@
                 <div class="col-sm-6">
                   <h4>Tutor:
                     <% if !@match.nil? %>
-                      <%= link_to Tutor.find(@match.tutor_id).name, tutor_path(@match.tutor_id)%>
+                      <!-- %= link_to Tutor.find(@match.tutor_id).name, tutor_path(@match.tutor_id)% -->
+                      <%= link_to 'Match Student', students_match_path(@student) %>
                     <% else %>
                       No Tutor
                     <% end %>
