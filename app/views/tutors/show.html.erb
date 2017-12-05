@@ -225,7 +225,9 @@
                   <% if !@student_options.empty? %>
                     <%= form_tag('add_student', method: 'put') do %>
                       <%= select_tag(:student_id, options_for_select(@student_options)) %>
-                      <%= submit_tag('Add Student') %>
+                      <%= button_tag(type: "submit", class: "btn btn-success") do %>
+                          <i class="glyphicon glyphicon-plus"></i> Add Student <i class="icon-repeat"></i>
+                      <% end %>
                       <%= hidden_field_tag(:tutor_id, @tutor.id) %>
                       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                     <% end %>
@@ -250,7 +252,9 @@
                           <td> <%= link_to s.name, s %> </td>
                           <td> <%= s.email %> </td>
                           <td> <%= form_tag('remove_student', method: 'patch') do %>
-                            <%= submit_tag('Remove Student') %>
+                            <%= button_tag(type: "submit", class: "btn btn-danger") do %>
+                                <i class="glyphicon glyphicon-remove"></i>  Remove Student <i class="icon-repeat"></i>
+                            <% end %>
                             <%= hidden_field_tag(:tutor_id, @tutor.id) %>
                             <%= hidden_field_tag(:student_id, s.id) %>
                             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
