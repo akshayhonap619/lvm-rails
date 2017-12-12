@@ -25,6 +25,23 @@ RSpec.describe TutorCommentsController, type: :controller do
       end
     end
 
+    describe 'as Coordinator' do
+      before do
+        affiliate = create(:affiliate)
+        coordinator = create(:coordinator, affiliate: affiliate)
+        @user = User.new(role: 1, coordinator_id: coordinator.id)
+        sign_in_auth(@user)
+        @tutor2 = create(:tutor)
+        create(:volunteer_job, tutor: @tutor2, affiliate: affiliate)
+        @tutor_comment = create(:tutor_comment, tutor_id: @tutor.id)
+      end
+
+      it 'denys to create a new comment for incorrect tutor_id' do
+        get :new, params: { tutor: @tutor }
+        expect((redirect_to root_path))
+      end
+    end
+
     describe 'GET #edit' do
       before do
         @tutor_comment = create(:tutor_comment, tutor_id: @tutor.id)

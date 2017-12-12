@@ -1,11 +1,10 @@
 class TutorCommentsController < ApplicationController
   before_action :set_tutor_comment, only: [:edit, :update, :destroy]
+  before_action :set_tutor, only: [:new]
 
   add_breadcrumb 'Home', :root_path
 
   def new
-    @tutor = Tutor.of(current_user).find(params[:tutor])
-
     add_breadcrumb 'Tutors', tutors_path
     add_breadcrumb @tutor.name, tutor_path(@tutor)
     add_breadcrumb 'New Tutor Comment'
@@ -57,7 +56,15 @@ class TutorCommentsController < ApplicationController
     )
   end
 
+  def set_tutor
+    @tutor = Tutor.of(current_user).find(params[:tutor])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
+  end
+
   def set_tutor_comment
     @tutor_comment = TutorComment.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
   end
 end

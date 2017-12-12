@@ -244,6 +244,8 @@ class StudentsController < ApplicationController
 
   def set_student
     @student = Student.of(current_user).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
   end
 
   def tutor_options

@@ -284,5 +284,7 @@ class TutorsController < ApplicationController
 
   def set_tutor
     @tutor = Tutor.of(current_user).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
   end
 end

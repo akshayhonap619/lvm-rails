@@ -1,11 +1,11 @@
 class StudentCommentsController < ApplicationController
+  before_action :set_student, only: [:new]
   before_action :set_student_comment, only: [:edit, :update, :destroy]
+  before_action :set_student_of_comment, only: [:edit, :destroy]
 
   add_breadcrumb 'Home', :root_path
 
   def new
-    @student = Student.of(current_user).find(params[:student])
-
     add_breadcrumb 'Students', students_path
     add_breadcrumb @student.name, student_path(@student)
     add_breadcrumb 'New Student Comment'
@@ -26,8 +26,6 @@ class StudentCommentsController < ApplicationController
   end
 
   def edit
-    @student = Student.of(current_user).find(@student_comment.student_id)
-
     add_breadcrumb 'Students', students_path
     add_breadcrumb @student.name, student_path(@student)
     add_breadcrumb 'Edit Comment'
@@ -44,7 +42,6 @@ class StudentCommentsController < ApplicationController
   end
 
   def destroy
-    @student = Student.of(current_user).find(@student_comment.student_id)
     @student_comment.destroy
 
     redirect_to student_path(@student)
@@ -57,6 +54,18 @@ class StudentCommentsController < ApplicationController
       :content,
       :student_id
     )
+  end
+
+  def set_student
+    @student = Student.of(current_user).find(params[:student])
+  rescue ActiveRecord::RecordNotFound
+    deny_access
+  end
+
+  def set_student_of_comment
+    @student = Student.of(current_user).find(@student_comment.student_id)
+  rescue ActiveRecord::RecordNotFound
+    deny_access
   end
 
   def set_student_comment

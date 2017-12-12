@@ -39,6 +39,7 @@ RSpec.describe TutorsController, type: :controller do
         before do
           user = User.new(role: 1, coordinator_id: 1)
           sign_in_auth(user)
+          @tutor3 = create(:tutor)
         end
 
         it 'populates an array of affiliate tutors' do
@@ -50,6 +51,16 @@ RSpec.describe TutorsController, type: :controller do
           get :index
 
           expect(response).to render_template :index
+        end
+
+        it 'denys access to show tutor who doesnt belong to this coordinator' do
+          get :show, params: { id: @tutor3 }
+          expect((redirect_to root_path))
+        end
+
+        it 'denys access to edit tutor who doesnt belong to this coordinator' do
+          get :edit, params: { id: @tutor3 }
+          expect((redirect_to root_path))
         end
       end
 

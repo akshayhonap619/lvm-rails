@@ -25,6 +25,25 @@ RSpec.describe StudentCommentsController, type: :controller do
       end
     end
 
+    describe 'as Coordinator' do
+      before do
+        user = User.new(role: 1, coordinator_id: 1)
+        sign_in_auth(user)
+        @student2 = create(:student)
+        @student_comment = create(:student_comment, student_id: @student.id)
+      end
+
+      it 'denys to create a new comment for incorrect student_id' do
+        get :new, params: { student: @student }
+        expect((redirect_to root_path))
+      end
+
+      it 'denys to edit a  comment for incorrect student_id' do
+        get :edit, params: { id: @student_comment, student: @student2 }
+        expect((redirect_to root_path))
+      end
+    end
+
     describe 'GET #edit' do
       before do
         @student_comment = create(:student_comment, student_id: @student.id)
