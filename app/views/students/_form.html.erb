@@ -401,23 +401,7 @@
 
   <section>
     <%= f.button :submit %>
-
-  <span class="pull-right">
-    <% if @student.deleted_on %>
-      <%= link_to student_reinstate_path(@student), method: :patch, data: { confirm: "Are you sure you want to reinstate #{@student.name}?" } do %>
-        <button class="btn btn-success">
-          <span class="glyphicon glyphicon-check"></span> Reinstate Student
-        </button>
-      <% end %>
-    <% else %>
-      <%= link_to student_delete_path(@student), method: :patch, data: { confirm: "Are you sure you want to delete #{@student.name}?" } do %>
-        <button class="btn btn-danger">
-          <span class="glyphicon glyphicon-trash"></span> Delete Student
-        </button>
-      <% end %>
-    <% end %>
-    <span>
-      </section>
+  </section>
   <hr>
 </form>
 

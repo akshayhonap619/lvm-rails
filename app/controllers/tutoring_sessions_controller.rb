@@ -1,7 +1,5 @@
 class TutoringSessionsController < ApplicationController
   before_action :guard_against_tutors
-  before_action :set_student, only: [:student_index]
-  before_action :set_tutor, only: [:tutor_index]
   before_action :set_tutoring_session, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb 'Home', :root_path
@@ -15,6 +13,8 @@ class TutoringSessionsController < ApplicationController
     # versus a tutor. Please note that the user cannot edit or otherwise
     # manipulate any data on this page. To modify anything they must do so
     # through the tutor path.
+
+    @student = Student.of(current_user).find(params[:id])
 
     add_breadcrumb 'Students', students_path
     add_breadcrumb @student.name, student_path(@student)
@@ -43,7 +43,7 @@ class TutoringSessionsController < ApplicationController
   end
 
   def tutor_index
-    # @tutor = Tutor.of(current_user).find(params[:id])
+    @tutor = Tutor.of(current_user).find(params[:id])
 
     add_breadcrumb "Tutoring Sessions for #{@tutor.name}"
 
@@ -161,18 +161,6 @@ class TutoringSessionsController < ApplicationController
                   .find(params.to_unsafe_h['tutoring_session']['tutor_id'])
     @students = Match.where(tutor_id: @tutor.id)
                      .map { |m| [m.student.name, m.id] }
-  end
-
-  def set_student
-    @student = Student.of(current_user).find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    deny_access
-  end
-
-  def set_tutor
-    @tutor = Tutor.of(current_user).find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    deny_access
   end
 
   def tutoring_session_params

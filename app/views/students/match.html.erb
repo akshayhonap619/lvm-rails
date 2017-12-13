@@ -1,0 +1,111 @@
+
+<div>
+   <% @tutor_options.each do |model| %>
+      <div> <%= model %> </div>
+   <%end %>
+<div>
+<div><%= @age %></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1 class="index-header text-center">
+          <%= @page_title %>
+          <% if @page_title_subtext %>
+            <br>
+            <small>
+              <%= @page_title_subtext %>
+            </small>
+          <% end %>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% if @download_button %>
+  <div class="col-md-6 text-right">
+    <div class="index-download-button">
+      <a href=<%= @download_button[:url] %> role="button" class="btn btn-primary"> <%= @download_button[:text] %> </a>
+    </div>
+  </div>
+<% end %>
+
+<table id="indexTable" class="display hover order-column" width="100%">
+  <thead>
+    <tr>
+      <% @headers.each do |header| %>
+        <th> <%= header %> </th>
+      <% end %>
+  </thead>
+
+  <% @tutor_options.each do |model| %>
+  <% if @clickable_rows %>
+      <tr class="clickable" data-url=<%= tutor_path(id:model[0]) %>>
+      <% else %>
+      <tr>
+        <%end%>
+      <%if model[3] !=0 %>
+      
+        <td> <%= model[4] %> </td>
+        <td> <%= model[5] %> </td>
+        <td> <%= model[3] %> </td>
+        <td> <%= model[7] %> </td>
+        <td> <%= model[8] %> </td>
+        <!-- <td> < %= link_to('View Students', tutor_path(id:model[0])) %></td>
+        <td>
+          <%= link_to('Match', students_make_match_path(id:@student.id,id1:model[0])) %>
+
+        </td> --><td>
+        <!-- <%= form_tag('set_tutor', method: 'put', url:'students/set_tutor' ) do %>
+          <%=  %>
+          <%= button_tag(type: "submit", class: "btn btn-success") do %>
+              <i class="glyphicon glyphicon-plus"></i> Set Tutor <i class="icon-repeat"></i>
+          <% end %>
+          <%= hidden_field_tag(:student_id, @student.id) %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <% end %> -->
+        <button value="Set Tutor" class="btn btn-success" onclick="<%set_tutor1(@student.id,model[0]) %>">
+        <i class="glyphicon glyphicon-plus"></i>&nbsp; Set Tutor </button>
+      </td>
+      <!-- Here -->
+          <%end%>
+    </tr>
+  <% end %>
+</table>
+
+<script>
+  // Because turbolinks gets the page from the cache instead of making another
+  // GET request, functionality of DataTables is broken.  DataTables thinks it
+  // needs to recreate the table, causing a duplicate table to be created and the
+  // modal appears on the screen but does not repsond to the close buttons. The
+  // solution is when reading from the turbolinks cache to destroy the old
+  // DataTables table.
+
+
+
+  $(document).ready(function(){
+    var indexTable;
+
+    document.addEventListener('turbolinks:load', function() {
+      indexTable = $('#indexTable').DataTable();
+    });
+
+    document.addEventListener("turbolinks:before-cache", function() {
+      if ($('#indexTable_wrapper').length == 1)
+        indexTable.destroy();
+    });
+  });
+
+</script>
+
+<% if @clickable_rows %>
+  <script>
+    // Linkify the columns!
+    $('#indexTable tbody tr').click(function(e) {
+      window.location.assign($(e.currentTarget).attr('data-url'));
+    });
+  </script>
+<% end %>
