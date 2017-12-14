@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   patch 'users/:id/update', to: 'users#update', as: 'update_users'
   post 'user/admin_create', to: 'users#create', as: 'admin_users_create'
 
+  get 'students/:id/match', to: 'students#match', as: 'students_match'
   resources :affiliates
   resources :assessments
   resources :coordinators

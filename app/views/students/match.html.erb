@@ -48,26 +48,14 @@
       <tr>
         <%end%>
       <%if model[3] !=0 %>
-      
+
         <td> <%= model[4] %> </td>
         <td> <%= model[5] %> </td>
         <td> <%= model[3] %> </td>
         <td> <%= model[7] %> </td>
         <td> <%= model[8] %> </td>
-        <!-- <td> < %= link_to('View Students', tutor_path(id:model[0])) %></td>
-        <td>
-          <%= link_to('Match', students_make_match_path(id:@student.id,id1:model[0])) %>
 
-        </td> --><td>
-        <!-- <%= form_tag('set_tutor', method: 'put', url:'students/set_tutor' ) do %>
-          <%=  %>
-          <%= button_tag(type: "submit", class: "btn btn-success") do %>
-              <i class="glyphicon glyphicon-plus"></i> Set Tutor <i class="icon-repeat"></i>
-          <% end %>
-          <%= hidden_field_tag(:student_id, @student.id) %>
-          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <% end %> -->
-        <button value="Set Tutor" class="btn btn-success" onclick="<%set_tutor1(@student.id,model[0]) %>">
+      <td>  <button value="Set Tutor" class="btn btn-success" onclick="<%set_tutor1(@student.id,model[0]) %>">
         <i class="glyphicon glyphicon-plus"></i>&nbsp; Set Tutor </button>
       </td>
       <!-- Here -->
